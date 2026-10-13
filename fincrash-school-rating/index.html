@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ФинCrash — экономическая стратегия</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=5">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png?v=5">
+  <meta name="theme-color" content="#181623">
+  <meta name="description" content="ФинCrash — экономический симулятор: производство, рынок, контракты и развитие вашей компании.">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=5">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ФинCrash — экономический симулятор">
+  <meta property="og:description" content="Создайте компанию, наладьте производство и обгоните рынок.">
+  <meta property="og:image" content="https://fincrash.github.io/assets/og.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://fincrash.github.io/assets/og.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-card">
+      <img class="auth-logo" src="assets/logo.png" alt="ФинCrash">
+      <div class="auth-tabs"><button type="button" class="active" data-auth-tab="login">Вход</button><button type="button" data-auth-tab="register">Регистрация</button></div>
+      <form class="auth-form" id="loginForm" autocomplete="on" novalidate>
+        <div class="field"><label>ЛОГИН</label><input id="loginName" autocomplete="username" maxlength="20" placeholder="Ваш логин"></div>
+        <div class="field"><label>ПАРОЛЬ</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Пароль"></div>
+        <div class="auth-error" id="loginError"></div>
+        <button class="primary-btn" type="submit">Войти</button>
+      </form>
+      <form class="auth-form" id="registerForm" autocomplete="on" novalidate hidden>
+        <div class="field"><label>ЛОГИН</label><input id="regName" autocomplete="username" maxlength="20" placeholder="3–20 символов: буквы, цифры, _ . -"></div>
+        <div class="field"><label>НАЗВАНИЕ КОМПАНИИ</label><input id="regCompany" maxlength="32" placeholder="Например, Aurora Enterprise"></div>
+        <div class="field"><label>ПАРОЛЬ</label><input id="regPass" type="password" autocomplete="new-password" placeholder="Минимум 6 символов"></div>
+        <div class="field"><label>ПОВТОРИТЕ ПАРОЛЬ</label><input id="regPass2" type="password" autocomplete="new-password" placeholder="Ещё раз пароль"></div>
+        <div class="auth-error" id="registerError"></div>
+        <button class="primary-btn" type="submit">Создать аккаунт</button>
+      </form>
+      <p class="auth-note">Аккаунты и сохранения хранятся локально в этом браузере. Пароль не отправляется на сервер.</p>
+    </div>
+  </div>
+  <div class="app-shell" id="appShell" hidden>
+    <aside class="sidebar">
+      <div class="brand"><img src="assets/logo.png" alt="ФинCrash"></div>
+      <button class="company-mini" id="companyMini" title="Открыть профиль" type="button">
+        <div class="company-avatar" id="sideAvatar">AE</div>
+        <div><b id="sideCompany">Моя компания</b><small id="sideUser">Профиль</small></div>
+      </button>
+      <nav id="navigation">
+        <button class="nav-item active" data-page="overview"><span>◫</span> Обзор</button>
+        <button class="nav-item" data-page="rating"><span>★</span> Рейтинг школьников</button>
+        <button class="nav-item" data-page="divisions"><span>▦</span> Подразделения</button>
+        <button class="nav-item" data-page="production"><span>⚙</span> Производство</button>
+        <button class="nav-item" data-page="warehouse"><span>▤</span> Склад</button>
+        <button class="nav-item" data-page="market"><span>↗</span> Рынок</button>
+        <button class="nav-item" data-page="staff"><span>♙</span> Персонал</button>
+        <button class="nav-item" data-page="suppliers"><span>⇄</span> Снабжение</button>
+        <button class="nav-item" data-page="logistics"><span>🚚</span> Логистика</button>
+        <button class="nav-item" data-page="research"><span>⌘</span> Развитие</button>
+        <button class="nav-item" data-page="competitors"><span>♧</span> Конкуренты</button>
+        <button class="nav-item" data-page="contracts"><span>▤</span> Контракты</button>
+        <button class="nav-item" data-page="finance"><span>₽</span> Финансы</button>
+        <button class="nav-item" data-page="profile"><span>☺</span> Профиль</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="turn-card"><small>ИГРОВОЙ ПЕРИОД</small><b id="sideTurn">День 1</b><span id="sideDate">Понедельник</span></div>
+        <button class="advance-btn" id="advanceBtn">Завершить период <span>→</span></button>
+        <small class="copyright">Самостоятельный учебный симулятор<br>Не связан с Virtonomica</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow" id="breadcrumb">КОМПАНИЯ / ОБЗОР</div><h1 id="pageTitle">Обзор компании</h1></div>
+        <div class="top-actions"><div class="period-pill"><span class="live-dot"></span><span id="topTurn">День 1</span></div><button class="icon-btn" id="helpBtn" title="Как играть">?</button><button class="icon-btn" id="logoutBtn" title="Выйти из аккаунта" type="button">⏻</button><button class="user-chip" id="userChip" type="button"><span class="user-avatar" id="userAvatar">CEO</span><span id="userName">Руководитель</span><span>⌄</span></button></div>
+      </header>
+      <section class="content" id="pageContent"></section>
+      <footer>ФинCrash <span>•</span> Экономический симулятор. Все данные аккаунта сохраняются в этом браузере.</footer>
+      <div class="mobile-period-bar"><span>Готовы проверить стратегию?</span><button class="advance-btn" id="advanceMobile" type="button">Завершить период →</button></div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="helpDialog">
+    <div class="dialog-head"><div><div class="eyebrow">БЫСТРЫЙ СТАРТ</div><h2>Как играть</h2></div><button class="icon-btn" id="closeHelp">×</button></div>
+    <div class="help-content">
+      <p><b>1. Производите.</b> На странице «Производство» запускайте выпуск доступных товаров. Для выпуска нужны сырьё и деньги.</p>
+      <p><b>2. Продавайте.</b> На рынке задавайте цену и количество товара для продажи. Спрос меняется каждый игровой период.</p>
+      <p><b>3. Развивайте компанию.</b> Нанимайте сотрудников, улучшайте производительность и открывайте новые подразделения.</p>
+      <p><b>4. Настройте профиль.</b> В разделе «Профиль» можно сменить название своей компании и пароль, а также выйти из аккаунта.</p>
+      <p><b>5. Завершайте период.</b> Нажмите «Завершить период»: рынок обработает продажи, начислит расходы и обновит спрос.</p>
+      <p><b>6. Соревнуйтесь и учитесь.</b> В «Рейтинге школьников» — сезон из 12 периодов и четыре учебных задания. Учитываются капитал, обучение, разнообразие продаж и устойчивость. Укажите псевдоним, школу и класс в профиле. Рейтинг локальный: он сравнивает аккаунты этого браузера на одинаковом этапе. Демо-пример содержит только вымышленных участников.</p>
+      <p class="muted">Это самостоятельная реализация с оригинальным интерфейсом и упрощёнными игровыми правилами. Это не копия серверной части другой игры.</p>
+    </div>
+  </dialog>
+  <script src="rating.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
